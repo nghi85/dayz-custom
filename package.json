@@ -1,0 +1,102 @@
+{
+  "name": "dayz",
+  "version": "2.9.0",
+  "description": "A Day/Week/Month display React component",
+  "main": "dist/dayz.js",
+  "module": "dist/dayz.esm.js",
+  "browser": "dist/dayz.js",
+  "browserslist": "> 0.25%, not dead",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathanstitt/dayz.git"
+  },
+  "keywords": [
+    "react",
+    "calendar",
+    "events"
+  ],
+  "author": "Nathan Stitt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nathanstitt/dayz/issues"
+  },
+  "homepage": "https://github.com/nathanstitt/dayz#readme",
+  "dependencies": {
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "tiny-emitter": "^2.1.0"
+  },
+  "peerDependencies": {
+    "moment": "^2.24",
+    "moment-range": ">=4.0",
+    "prop-types": "*",
+    "react": "*",
+    "react-dom": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "babel7-jest": "^1.0.1",
+    "babelrc-rollup": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.2.1",
+    "eslint-config-argosity": "^1.7.0",
+    "eslint-plugin-react": "^7.14.3",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^4.2.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-exec": "^4.0.0",
+    "gulp-run": "^1.7.1",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^5.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.9.0",
+    "jest-cli": "^24.9.0",
+    "moment": "^2.22.2",
+    "moment-range": "^4.0.1",
+    "node-sass": "^4.12.0",
+    "npm-release": "^1.0.0",
+    "react": "^16.9.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.9.0",
+    "react-test-renderer": "^16.9.0",
+    "rollup": "^1.20.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sass": "^1.2.2",
+    "sass-loader": "^7.3.1",
+    "scss": "^0.2.4",
+    "scss-loader": "0.0.1",
+    "style-loader": "^1.0.0",
+    "through2": "^3.0.1",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "scripts": {
+    "test": "./script/test",
+    "ci": "./script/cibuild",
+    "prepublishOnly": "./script/prepublish",
+    "start": "./script/demo",
+    "build": "$(npm bin)/rollup -c",
+    "preversion": "./script/preversion"
+  }
+}
