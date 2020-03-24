@@ -11,36 +11,36 @@ export default class XLabels extends React.Component {
         locale:       PropTypes.string.isRequired,
         weekStartsOn: PropTypes.oneOf([0, 1]),
         mode:         PropTypes.string,
-        technicans:   PropTypes.array,
-        daynumber:    PropTypes.number
+        technicians:  PropTypes.array,
+        daynumber:    PropTypes.number,
     }
 
     get days() {
         const days = [];
 
+        if ('schedule' === this.props.mode) {
+            for (let i = 0; i < this.props.technicians.length; i += 1) {
+                days.push(this.props.technicians[i]);
+            }
+            return days;
+        }
+
         if ('day' === this.props.display) {
             days.push(moment(this.props.date));
-        } else {
-            if (this.props.mode !== "schedule") {
-                let startOfType = 'week';
-                const day = moment(this.props.date).locale(this.props.locale);
-                if (this.props.weekStartsOn !== undefined) {
-                    startOfType = 'isoWeek';
-                    day.startOf(startOfType);
-                    if (0 === this.props.weekStartsOn && 1 === day.isoWeekday()) {
-                        day.subtract(1, 'day');
-                    }
-                } else {
-                    day.startOf(startOfType);
-                }
-                for (let i = 0; i < this.props.daynumber; i += 1) {
-                    days.push(day.clone().add(i, 'day'));
+        } else if (this.props.mode !== 'schedule') {
+            let startOfType = 'week';
+            const day = moment(this.props.date).locale(this.props.locale);
+            if (this.props.weekStartsOn !== undefined) {
+                startOfType = 'isoWeek';
+                day.startOf(startOfType);
+                if (0 === this.props.weekStartsOn && 1 === day.isoWeekday()) {
+                    day.subtract(1, 'day');
                 }
             } else {
-                console.log(this.props.technicans);
-                for (let i = 0; i < this.props.technicans.length; i += 1) {
-                    days.push(this.props.technicans[i]);
-                }
+                day.startOf(startOfType);
+            }
+            for (let i = 0; i < this.props.daynumber; i += 1) {
+                days.push(day.clone().add(i, 'day'));
             }
         }
         return days;
@@ -52,25 +52,29 @@ export default class XLabels extends React.Component {
     }
 
     render() {
-        if (this.props.mode !== "schedule") {
+        if (this.props.mode !== 'schedule') {
             return (
                 <div className="x-labels">
                     <div className="time-note-label">Time *</div>
-                    {this.days.map(day => <div key={day.format('YYYYMMDD')} className="day-label">
+                    {this.days.map((day, index) => <div key={day.format('YYYYMMDD')} className="day-label">
                         {day.locale(this.props.locale).format(this.dateFormat)}
-                    </div>)}
-                </div>
-            );
-        } else {
-            return (
-                <div className="x-labels">
-                    <div className="time-note-label">Time *</div>
-                    {this.days.map(day => <div className="day-label technican-link">
-                        {day}
+                        {
+                            this.props.specialHeader
+                          && this.props.specialHeader.index === index
+                          && this.props.specialHeader.element
+                        }
                     </div>)}
                 </div>
             );
         }
+        return (
+            <div className="x-labels">
+                <div className="time-note-label">Time *</div>
+                {this.days.map(day => <div className="day-label technican-link">
+                    {day.firstName}{' '}{day.lastName}{' '}({day.countryCode}-{day.state})
+                </div>)}
+            </div>
+        );
     }
 
 }

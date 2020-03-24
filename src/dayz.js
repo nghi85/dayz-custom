@@ -1,5 +1,6 @@
 import React     from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Layout    from './api/layout';
 import Day       from './day';
 import XLabels   from './x-labels';
@@ -13,7 +14,7 @@ export default class Dayz extends React.Component {
     static propTypes = {
         date:              PropTypes.object.isRequired,
         events:            PropTypes.instanceOf(EventsCollection),
-        technicans:        PropTypes.array,
+        technicians:        PropTypes.array,
         display:           PropTypes.oneOf(['month', 'week', 'day']),
         timeFormat:        PropTypes.string,
         dateFormat:        PropTypes.string,
@@ -28,7 +29,8 @@ export default class Dayz extends React.Component {
         ),
         weekStartsOn:      PropTypes.oneOf([0, 1]),
         mode:              PropTypes.string,
-        daynumber:         PropTypes.number
+        daynumber:         PropTypes.number,
+        specialHeader:     PropTypes.node,
     }
 
     static defaultProps = {
@@ -74,7 +76,25 @@ export default class Dayz extends React.Component {
         return Array.from(this.layout.range.by('days'));
     }
 
-    renderDays() {
+    renderDays(mode, technicians) {
+        if ('schedule' === mode) {
+            const day = moment();
+            return technicians.map((technician, index) => (
+                <Day
+                    technician={technician}
+                    mode="schedule"
+                    key={day.format('YYYYMMDD')}
+                    day={day}
+                    position={index}
+                    layout={this.layout}
+                    editComponent={this.props.editComponent}
+                    handlers={this.props.dayEventHandlers}
+                    eventHandlers={this.props.eventHandlers}
+                    onEventClick={this.props.onEventClick}
+                    onEventResize={this.props.onEventResize}
+                />
+            ));
+        }
         return this.days.map((day, index) => (
             <Day
                 key={day.format('YYYYMMDD')}
@@ -101,8 +121,9 @@ export default class Dayz extends React.Component {
                     locale={this.props.locale}
                     weekStartsOn={this.props.weekStartsOn}
                     mode={this.props.mode}
-                    technicans={this.props.technicans}
+                    technicians={this.props.technicians}
                     daynumber={this.props.daynumber}
+                    specialHeader={this.props.specialHeader}
                 />
                 <div className="body">
                     <YLabels
@@ -112,7 +133,7 @@ export default class Dayz extends React.Component {
                         timeFormat={this.props.timeFormat}
                     />
                     <div className="days">
-                        {this.renderDays()}
+                        {this.renderDays(this.props.mode, this.props.technicians)}
                         {this.props.children}
                     </div>
                 </div>

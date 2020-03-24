@@ -18,7 +18,7 @@ export default class EventsCollection {
     constructor(events = [], options = { displayAllDay: true, displayLabelForAllDays: true }) {
         this.events = [];
         for (let i = 0, { length } = events; i < length; i += 1) {
-            if (events[i].type === 'window') {
+            if ('window' === events[i].type) {
                 events[i].content = '';
                 events[i].eventId = '';
             }

@@ -10,6 +10,8 @@ const IsDayClass = new RegExp('(\\s|^)(events|day|label)(\\s|$)');
 export default class Day extends React.Component {
 
     static propTypes = {
+        technician:     PropTypes.object,
+        mode:           PropTypes.string,
         day:            PropTypes.object.isRequired,
         layout:         PropTypes.instanceOf(Layout).isRequired,
         handlers:       PropTypes.object,
@@ -92,25 +94,43 @@ export default class Day extends React.Component {
     }
 
     renderEvents() {
-        console.log(this.props.layout.forDay(this.props.day));
         const asMonth = this.props.layout.isDisplayingAsMonth;
         const singleDayEvents = [];
         const allDayEvents    = [];
         const onMouseMove = asMonth ? null : this.onMouseMove;
         this.props.layout.forDay(this.props.day).forEach((duration) => {
-            const event = (
-                <Event
-                    duration={duration}
-                    key={duration.key()}
-                    day={this.props.day}
-                    parent={this}
-                    onDragStart={this.onDragStart}
-                    onClick={this.props.onEventClick}
-                    editComponent={this.props.editComponent}
-                    onDoubleClick={this.props.onEventDoubleClick}
-                />
-            );
-            (duration.event.isSingleDay() ? singleDayEvents : allDayEvents).push(event);
+            let event;
+            if ('schedule' === this.props.mode) {
+                if (duration.event.attributes.userId === this.props.technician.userID) {
+                    event = (
+                        <Event
+                            duration={duration}
+                            key={duration.key()}
+                            day={this.props.day}
+                            parent={this}
+                            onDragStart={this.onDragStart}
+                            onClick={this.props.onEventClick}
+                            editComponent={this.props.editComponent}
+                            onDoubleClick={this.props.onEventDoubleClick}
+                        />
+                    );
+                    (duration.event.isSingleDay() ? singleDayEvents : allDayEvents).push(event);
+                }
+            } else {
+                event = (
+                    <Event
+                        duration={duration}
+                        key={duration.key()}
+                        day={this.props.day}
+                        parent={this}
+                        onDragStart={this.onDragStart}
+                        onClick={this.props.onEventClick}
+                        editComponent={this.props.editComponent}
+                        onDoubleClick={this.props.onEventDoubleClick}
+                    />
+                );
+                (duration.event.isSingleDay() ? singleDayEvents : allDayEvents).push(event);
+            }
         });
         const events = [];
         if (allDayEvents.length || !asMonth) {

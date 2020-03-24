@@ -24,35 +24,30 @@ export default class Event {
     }
 
     defaultRenderImplementation() {
-        // return React.createElement(
-        //     'div',
-        //     {},
-        //     this.attributes.content,
-        // );
         return (
             <div className="wrap-event-content">
                 <div className="event-content">
                     <span className="event-name">{this.attributes.content}</span>
-                    <span className="event-id">{this.attributes.eventId}</span>
+                    <span className="event-id" onClick={() => (this.attributes.onViewEventDetail ? this.attributes.onViewEventDetail() : null)}>{this.attributes.eventId}</span>
                 </div>
                 <div className="box-tooltip-calen">
                     <span className="title-box">Allocation Details</span>
                     <ul className="list-i-box">
                         <li className="item-list">
-                        <span className="title">Appointment ID :</span>
-                        <span className="sub-title">TECAMS1582073392TJTU</span>
+                            <span className="title">Appointment ID :</span>
+                            <span className="sub-title">{this.attributes.eventId}</span>
                         </li>
                         <li className="item-list">
-                        <span className="title">ATask ID :</span>
-                        <span className="sub-title">XYZ1234</span>
+                            <span className="title">Task ID :</span>
+                            <span className="sub-title">{this.attributes.taskID}</span>
                         </li>
                         <li className="item-list">
-                        <span className="title">Allocation Start :</span>
-                        <span className="sub-title">04/03/2020 10:00 AM</span>
+                            <span className="title">Allocation Start :</span>
+                            <span className="sub-title">{this.attributes.allocationStart}</span>
                         </li>
                         <li className="item-list">
-                        <span className="title">Allocation End :</span>
-                        <span className="sub-title">04/03/2020 12:00 AM</span>
+                            <span className="title">Allocation End :</span>
+                            <span className="sub-title">{this.attributes.allocationEnd}</span>
                         </li>
                     </ul>
                 </div>

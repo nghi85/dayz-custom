@@ -7,7 +7,6 @@ export default class EventDuration {
     constructor(layout, event, displayRange) {
         this.layout = layout;
         this.event = event;
-        console.log(this.event);
         this.stack = 0;
         this.displayRange = displayRange;
         this.startsBefore = event.start.isBefore(displayRange.start);
@@ -85,12 +84,12 @@ export default class EventDuration {
         if (this.event.colorIndex) {
             classes.push(`color-${this.event.colorIndex}`);
         }
-        if (this.event.attributes.type === 'window') {
-            classes.push(`avail-window`);
+        if ('window' === this.event.attributes.type) {
+            classes.push('avail-window');
         }
 
-        if (this.event.attributes.type === 'outside') {
-            classes.push(`out-window`);
+        if ('outside' === this.event.attributes.type) {
+            classes.push('out-window');
         }
 
         if (this.isResizing) classes.push('is-resizing');
