@@ -83,7 +83,7 @@ export default class Dayz extends React.Component {
                 <Day
                     technician={technician}
                     mode="schedule"
-                    key={day.format('YYYYMMDD')}
+                    key={`${day.format('YYYYMMDD')}-${index}`}
                     day={day}
                     position={index}
                     layout={this.layout}
