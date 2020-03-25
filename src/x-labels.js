@@ -25,24 +25,11 @@ export default class XLabels extends React.Component {
             return days;
         }
 
-        if ('day' === this.props.display) {
-            days.push(moment(this.props.date));
-        } else if (this.props.mode !== 'schedule') {
-            let startOfType = 'week';
-            const day = moment(this.props.date).locale(this.props.locale);
-            if (this.props.weekStartsOn !== undefined) {
-                startOfType = 'isoWeek';
-                day.startOf(startOfType);
-                if (0 === this.props.weekStartsOn && 1 === day.isoWeekday()) {
-                    day.subtract(1, 'day');
-                }
-            } else {
-                day.startOf(startOfType);
-            }
-            for (let i = 0; i < this.props.daynumber; i += 1) {
-                days.push(day.clone().add(i, 'day'));
-            }
+        const day = moment(this.props.date).locale(this.props.locale);
+        for (let i = 0; i < this.props.daynumber; i += 1) {
+            days.push(day.clone().add(i, 'day'));
         }
+
         return days;
     }
 

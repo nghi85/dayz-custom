@@ -57,23 +57,8 @@ export default class Layout {
 
         const start = moment(this.date).locale(this.locale);
         const end = moment(this.date).locale(this.locale);
-
-        if ('week' === this.display) {
-            if (this.weekStartsOn !== undefined) {
-                start.startOf('isoWeek');
-                end.endOf('isoWeek').subtract(7 - this.daynumber, 'days');
-                if (0 === this.weekStartsOn && 1 === start.isoWeekday()) {
-                    start.subtract(1, 'day');
-                    end.subtract(1, 'day');
-                }
-            } else {
-                start.startOf(this.display);
-                end.endOf(this.display).subtract(7 - this.daynumber, 'days');
-            }
-        } else {
-            start.startOf(this.display);
-            end.endOf(this.display);
-        }
+        start.startOf(this.display);
+        end.endOf(this.display);
 
         this.range = moment.range(
             start,

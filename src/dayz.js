@@ -30,7 +30,7 @@ export default class Dayz extends React.Component {
         weekStartsOn:      PropTypes.oneOf([0, 1]),
         mode:              PropTypes.string,
         daynumber:         PropTypes.number,
-        specialHeader:     PropTypes.node,
+        specialHeader:     PropTypes.object,
     }
 
     static defaultProps = {
@@ -73,12 +73,17 @@ export default class Dayz extends React.Component {
     }
 
     get days() {
-        return Array.from(this.layout.range.by('days'));
+        const days = [];
+        const day = moment(this.props.date).locale(this.props.locale);
+        for (let i = 0; i < this.props.daynumber; i += 1) {
+            days.push(day.clone().add(i, 'day'));
+        }
+        return days;
     }
 
     renderDays(mode, technicians) {
         if ('schedule' === mode) {
-            const day = moment();
+            const day = this.props.date;
             return technicians.map((technician, index) => (
                 <Day
                     technician={technician}
@@ -95,6 +100,7 @@ export default class Dayz extends React.Component {
                 />
             ));
         }
+
         return this.days.map((day, index) => (
             <Day
                 key={day.format('YYYYMMDD')}
