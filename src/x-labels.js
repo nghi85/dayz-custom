@@ -5,14 +5,15 @@ import PropTypes from 'prop-types';
 export default class XLabels extends React.Component {
 
     static propTypes = {
-        display:      PropTypes.oneOf(['month', 'week', 'day']),
-        date:         PropTypes.object.isRequired,
-        dateFormat:   PropTypes.string,
-        locale:       PropTypes.string.isRequired,
-        weekStartsOn: PropTypes.oneOf([0, 1]),
-        mode:         PropTypes.string,
-        technicians:  PropTypes.array,
-        daynumber:    PropTypes.number,
+        display:       PropTypes.oneOf(['month', 'week', 'day']),
+        date:          PropTypes.object.isRequired,
+        dateFormat:    PropTypes.string,
+        locale:        PropTypes.string.isRequired,
+        weekStartsOn:  PropTypes.oneOf([0, 1]),
+        mode:          PropTypes.string,
+        technicians:   PropTypes.array,
+        daynumber:     PropTypes.number,
+        onHeaderClick: PropTypes.func
     }
 
     get days() {
@@ -57,7 +58,7 @@ export default class XLabels extends React.Component {
         return (
             <div className="x-labels">
                 <div className="time-note-label">Time *</div>
-                {this.days.map(day => <div className="day-label technican-link">
+                {this.days.map(day => <div className="day-label technican-link" onClick={this.props.onHeaderClick ? () => this.props.onHeaderClick() : null}>
                     {day.firstName}{' '}{day.lastName}{' '}({day.countryCode}-{day.state})
                 </div>)}
             </div>
