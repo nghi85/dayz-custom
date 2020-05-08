@@ -31,7 +31,7 @@ export default class Dayz extends React.Component {
         mode:              PropTypes.string,
         daynumber:         PropTypes.number,
         specialHeader:     PropTypes.object,
-        onHeaderClick:     PropTypes.func
+        onHeaderClick:     PropTypes.func,
     }
 
     static defaultProps = {

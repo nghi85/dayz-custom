@@ -13,7 +13,7 @@ export default class XLabels extends React.Component {
         mode:          PropTypes.string,
         technicians:   PropTypes.array,
         daynumber:     PropTypes.number,
-        onHeaderClick: PropTypes.func
+        onHeaderClick: PropTypes.func,
     }
 
     get days() {
@@ -58,7 +58,7 @@ export default class XLabels extends React.Component {
         return (
             <div className="x-labels">
                 <div className="time-note-label">Time *</div>
-                {this.days.map(day => <div className="day-label technican-link" onClick={this.props.onHeaderClick ? () => this.props.onHeaderClick() : null}>
+                {this.days.map(day => <div key={day.userID} className="day-label technican-link" onClick={this.props.onHeaderClick ? () => this.props.onHeaderClick(day.userID) : null}>
                     {day.firstName}{' '}{day.lastName}{' '}({day.countryCode}-{day.state})
                 </div>)}
             </div>
